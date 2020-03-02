@@ -2,13 +2,18 @@
   "name": "node-red-contrib-crownstone",
   "version": "0.0.1",
   "description": "A NodeRed node for Crownstones using BLE and Bluenet API",
-  "main": "index.js",
+  "node-red": {
+    "nodes": {
+      "crownstone": "crownstone/crownstone.js",
+      "crownstones-config": "crownstone/crownstones-config.js"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github/com/bvmensvoort/node-red-contrib-crownstone"
+    "url": "https://github.com/bvmensvoort/node-red-contrib-crownstone"
   },
   "author": "Bram van Mensvoort <info@bvmensvoort.nl>",
   "license": "MIT"

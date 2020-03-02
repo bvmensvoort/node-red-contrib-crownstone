@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    RED.nodes.registerType('crownstone', {
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: { value: "" },
+            crownstone: { value: "", type: "crownstones" },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "file.png",
+        label: function () {
+            return this.name || "crownstone";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="crownstone">
+    <div class="form-row">
+        <div>
+            <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+            <input type="text" id="node-input-name" placeholder="Name">
+        </div>
+        <div>
+            <label for="node-input-crownstone"><i class="icon-tag"></i> Crownstone</label>
+            <input type="text" id="node-input-crownstone" placeholder="Crownstone">
+        </div>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="crownstone">
+    <p>A simple node that converts the message payloads into all lower-case characters</p>
+</script>
