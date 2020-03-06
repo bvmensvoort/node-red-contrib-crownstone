@@ -5,7 +5,9 @@ const Topics_1 = require("../../topics/Topics");
 const EventBus_1 = require("../../util/EventBus");
 const Advertisement_1 = require("../../packets/Advertisement");
 const Services_1 = require("../../protocol/Services");
-const noble = require('noble');
+//const noble = require('noble');
+const noble = require('../../../node_modules/@abandonware/noble');
+
 class Scanner {
     constructor(settings) {
         this.nobleState = 'unknown';

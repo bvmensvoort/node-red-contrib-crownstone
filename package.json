@@ -11,6 +11,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "@abandonware/noble": "^1.9.2-6",
+    "aes-js": "^3.1.1",
+    "jest": "^25.1.0",
+    "node-fetch": "^2.6.0",
+    "serialport": "^8.0.7",
+    "sha-1": "~0.1.1"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/bvmensvoort/node-red-contrib-crownstone"
