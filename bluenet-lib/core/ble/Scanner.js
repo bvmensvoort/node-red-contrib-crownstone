@@ -10,7 +10,7 @@ const noble = require('../../../node_modules/@abandonware/noble');
 
 class Scanner {
     constructor(settings) {
-        this.nobleState = 'unknown';
+        this.nobleState = noble.state;
         this.scanningInProgress = false;
         this.trackedStones = {};
         this.cache = {};
@@ -113,7 +113,8 @@ class Scanner {
             return;
         }
         // decrypt the advertisement
-        if (this.settings.encryptionEnabled) {
+        this.opType = peripheral.advertisement.serviceData[0].data.readUInt8(0);
+        if (this.opType!==6 && this.settings.encryptionEnabled) {
             advertisement.decrypt(this.settings.basicKey);
         }
         else {

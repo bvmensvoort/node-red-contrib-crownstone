@@ -62,14 +62,17 @@ class ServiceData {
                     break;
                 case 4:
                     Parsers_1.parseOpCode4(this, this.encryptedData);
+                    this.setupMode = true;
                     break;
                 case 5:
                 case 7:
                     this.getDeviceTypeFromPublicData();
+                    this.setupMode = false;
                     Parsers_1.parseOpCode5(this, this.encryptedData);
                     break;
                 case 6:
                     this.getDeviceTypeFromPublicData();
+                    this.setupMode = true;
                     Parsers_1.parseOpCode6(this, this.encryptedData);
                     break;
                 default:

@@ -8,7 +8,7 @@ const Services_1 = require("../protocol/Services");
 var noble = require('noble');
 class Scanner {
     constructor(settings) {
-        this.nobleState = 'unknown';
+        this.nobleState = noble.state;
         this.scanningInProgress = false;
         this.trackedStones = {};
         this.cache = {};
