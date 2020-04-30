@@ -4,8 +4,7 @@
   "description": "A NodeRed node for Crownstones using BLE and Bluenet API",
   "node-red": {
     "nodes": {
-      "crownstone": "crownstone/crownstone.js",
-      "crownstones-config": "crownstone/crownstones-config.js"
+      "crownstone": "crownstone/crownstone.js"
     }
   },
   "scripts": {
