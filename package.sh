@@ -26,7 +26,7 @@ cp -r node_modules ./package
 tar --create --gzip --file=${TARFILE} ./package
 
 echo "-- Show SHA265 checksum of package"
-shasum --algorithm 256 ${TARFILE} > ${TARFILE}.sha256sums
+shasum --algorithm 256 ${TARFILE} > ${TARFILE}.sha256sum
 cat SHA256SUMS
 
 rm -rf SHA256SUMS package
