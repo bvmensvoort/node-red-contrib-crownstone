@@ -1,6 +1,6 @@
 module.exports = function (RED) {
     const CrownstoneAPI = new (require("./CrownstoneAPI.js"))();
-    const BluenetLib = require("../bluenet-lib/index");
+    const BluenetLib = require("../lib/bluenet-nodejs-lib/index");
     const bluenet = new BluenetLib.Bluenet();
     
     let isScanning = false;

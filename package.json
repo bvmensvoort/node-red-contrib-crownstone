@@ -32,5 +32,9 @@
     "url": "https://github.com/bvmensvoort/node-red-contrib-crownstone/issues"
   },
   "author": "Bram van Mensvoort <info@bvmensvoort.nl>",
-  "license": "MIT"
+  "license": "MIT",
+  "directories": {
+    "lib": "lib",
+    "example": "examples"
+  }
 }

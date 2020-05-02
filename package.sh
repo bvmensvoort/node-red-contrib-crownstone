@@ -12,7 +12,7 @@ shasum --algorithm 256 package.json package-lock.json LICENSE README.md > SHA256
 rm -rf node_modules/.bin
 
 # If you have npm production dependencies, uncomment the following line
-find bluenet-lib \( -type f -o -type l \) -exec shasum --algorithm 256 {} \; >> SHA256SUMS
+find lib/bluenet-nodejs-lib \( -type f -o -type l \) -exec shasum --algorithm 256 {} \; >> SHA256SUMS
 find crownstone \( -type f -o -type l \) -exec shasum --algorithm 256 {} \; >> SHA256SUMS
 find node_modules \( -type f -o -type l \) -exec shasum --algorithm 256 {} \; >> SHA256SUMS
 
