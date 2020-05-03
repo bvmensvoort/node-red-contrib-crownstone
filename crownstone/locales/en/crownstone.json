@@ -6,6 +6,8 @@
 		"crownstone-account": "!Crownstone account",
 		"sphere": "!Sphere",
 		"credentials-missing": "!Credentials missing",
-		"no-spheres": "No spheres found"
+		"no-spheres": "No spheres found",
+		"control-scanning": "!Control scanning",
+		"status-found": "!Status of Crownstones found"
 	}
 }
