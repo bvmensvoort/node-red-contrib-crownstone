@@ -10,7 +10,7 @@
   ],
   "node-red": {
     "nodes": {
-      "crownstone": "crownstone/crownstone.js"
+      "crownstoneScanner": "crownstone/crownstoneScanner.js"
     }
   },
   "scripts": {

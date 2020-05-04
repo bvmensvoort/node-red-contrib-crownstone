@@ -1,0 +1,26 @@
+{
+	"crownstoneScanner": {
+		"name": "!Name",
+		"email": "!E-mail",
+		"sha1password": "!Password (in SHA1)",
+		"crownstone-account": "!Crownstone account",
+		"sphere": "!Sphere",
+		"credentials-missing": "!Credentials missing",
+		"no-spheres": "!No spheres found",
+		"control-scanning": "!Control scanning",
+		"status-found": "!Status of Crownstones found",
+		"missing-credentials": "!Missing credentials. First establish a connection in the node config.",
+		"establish-connection": "!Establish connection",
+		"incorrect-input": "!Incorrect input, ignoring. See the documentation in the info tab.",
+		"link-to-cloud-failed": "!Failed linking to cloud. - ",
+		"scan-started": "!Scanning for BLEs started",
+		"error-scanning-crownstones": "!Error scanning Crownstones - ",
+		"scan-stopped": "!BLE scanning stopped.",
+		"status-scan-stopped": "!Stopped.",
+		"status-scan-started": "!Started.",
+		"cloud-connected": "!Crownstone cloud connected",
+		"cloud-not-connected": "!Error connecting to Crownstone cloud",
+		"getting-spheres": "!Getting spheres...",
+		"connection-in-progress": "In progress..."
+	}
+}

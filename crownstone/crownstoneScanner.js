@@ -9,7 +9,7 @@ module.exports = function (RED) {
     // Enable webservices
     RED.httpAdmin.get('/crownstone/accountsave', accountSave);
     RED.httpAdmin.get('/crownstone/getSpheres', getSpheres);
-    RED.nodes.registerType("crownstone", CrownstoneNode, {
+    RED.nodes.registerType("crownstoneScanner", CrownstoneNode, {
         credentials: {
             email: {type:"text"},
             sha1Password: {type:"password"},
@@ -34,7 +34,7 @@ module.exports = function (RED) {
 
             // Go
             if (!msg.hasOwnProperty("payload") || typeof msg.payload !== "object" || !msg.payload.hasOwnProperty("scan")) {
-                node.warn("Incorrect input, ignoring. See the documentation in the info tab. ");
+                node.warn(RED._("crownstoneScanner.incorrect-input"));
                 return;
             }
             
@@ -56,13 +56,12 @@ module.exports = function (RED) {
         }
     
         function startScan(msg, send, done) {
-            console.log("Scanning for crownstones");
             var token = node.credentials && node.credentials.token;
             var sphereId = nodeConfig.sphereid;
 
             // Validation of input parameters
             if (!token || !sphereId) {
-                node.error('Missing credentials. First establish a connection in the node config.');
+                node.error(RED._("crownstoneScanner.missing-credentials"));
                 return;
             }
 
@@ -75,7 +74,7 @@ module.exports = function (RED) {
                     .then(function() {isLinked = true;})
                     .then(scanning)
                     .catch((err) => {
-                        node.error("Failed linking to cloud - " + JSON.stringify(err));
+                        node.error(RED._("crownstoneScanner.link-to-cloud-failed") + JSON.stringify(err));
                         stopScan();
                     })
                 ;
@@ -96,9 +95,7 @@ module.exports = function (RED) {
                         msg.payload = data;
                         send(msg)
                     });
-                    bluenet.on(BluenetLib.Topics.verifiedAdvertisement, (data) => { 
-                        console.log("verified:",data);
-
+                    bluenet.on(BluenetLib.Topics.verifiedAdvertisement, (data) => {
                         msg.payload = data;
                         msg.verified = true;
                         send(msg)
@@ -106,8 +103,8 @@ module.exports = function (RED) {
                     
                     return new Promise((resolve, reject) => {
                             isScanning = true;
-                            node.status({fill:"green",shape:"dot",text:"started"});
-                            node.log("Scanning for BLEs started");
+                            node.status({fill:"green",shape:"dot",text:"crownstoneScanner.status-scan-started"});
+                            node.log(RED._("crownstoneScanner.scan-started"));
 
                             bluenet.startScanning()
                                 .catch(reject)
@@ -118,7 +115,7 @@ module.exports = function (RED) {
                             }, 10000);
                         })
                         .catch((err)=>{
-                            if (done) done("Error scanning Crownstones - "+ JSON.stringify(done));
+                            if (done) done(RED._("crownstoneScanner.error-scanning-crownstones") + JSON.stringify(err));
                         })
                     ;
                 })
@@ -134,7 +131,7 @@ module.exports = function (RED) {
                     
                 })
                 .catch((err) => {
-                    done("Error scanning Crownstones - "+ JSON.stringify(err), msg);
+                    done(RED._("crownstoneScanner.error-scanning-crownstones") + JSON.stringify(err), msg);
                     stopScan();
                 })
             }
@@ -142,9 +139,9 @@ module.exports = function (RED) {
     
         function stopScan() {
             bluenet.stopScanning();
-            if (isScanning) node.log('BLE scanning stopped.');
+            if (isScanning) node.log(RED._("crownstoneScanner.scan-stopped"));
             isScanning = false;
-            node.status({fill:"red",shape:"ring",text:"stopped"});
+            node.status({fill:"red",shape:"ring",text:"crownstoneScanner.status-scan-stopped"});
         }
     }
 
@@ -157,7 +154,7 @@ module.exports = function (RED) {
         let nodeId = req.query.nodeId;
 
         if (!email || !sha1Password || !nodeId) {
-            res.status(422).send(RED._("crownstone.credentials-missing"));
+            res.status(422).send(RED._("crownstoneScanner.missing-credentials"));
             return;
         }
 
@@ -184,7 +181,7 @@ module.exports = function (RED) {
         let credentials = RED.nodes.getCredentials(accountNodeId);
         
         if (!credentials || !credentials.userid || !credentials.token) {
-            res.status(422).send(RED._("crownstone.credentials-missing"));
+            res.status(422).send(RED._("crownstoneScanner.credentials-missing"));
             return;
         }
 

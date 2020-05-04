@@ -1,0 +1,72 @@
+<script type="text/x-red" data-help-name="crownstoneScanner">
+<p>Scans Crownstones with bluetooth using Noble and outputs current status</p>
+
+<h3>Configuration</h3>
+<p>To setup smoothly, you have some already set up Crownstones.<br/>
+You can do this with the Crownstone app (<a href="https://play.google.com/store/apps/details?id=rocks.crownstone.consumerapp&hl=en">Android</a> and <a href="https://apps.apple.com/us/app/crownstone/id1136616106">iOS</a>.
+</p>
+<p>Then you also will have:<p>
+<ul>
+    <li>Crownstone cloud account</li>
+    <li>A set up sphere</li>
+    <li>Some installed and set up Crownstones</li>
+</ul>
+
+<p>For the password in this node, use a SHA1 encrypted password.<br/>
+To encrypt your password, you can use for example <a href="http://www.sha1-online.com/">SHA1-online.com</a></p>
+
+<h3>Inputs</h3>
+<p>
+The node currently has one property: <code>msg.payload.scan</code> <br/>
+With a value of:<br/>
+<code>true</code> Starts scanning for 10 seconds. <br/>
+<code>false</code> Stops scanning
+</p>
+<p>
+For each scan, the node currently outputs only one message per Crownstone.
+</p>
+
+<h3>Outputs</h3>
+<p>
+    The output is contained in a <code>msg.payload</code> property.
+    It contains the default bluenet output.
+    For example, it outputs the <a href="https://github.com/crownstone/bluenet/blob/master/docs/SERVICE_DATA.md#state-packet">Service data</a>.
+</p>
+<p>See below for details<p>
+<pre>{
+"handle": "Bluetooth handle"
+"address": "Bluetooth address"
+"rssi": "Proximity of the Crownstone"
+"isCrownstoneFamily": ""
+"isInDFUMode": "true if the Crownstone is in Factory Reset mode"
+"referenceId": ""
+"serviceUUID": "which bluetooth uuid to use"
+"serviceData: {
+    "opCode": "Type of Crownstone product",
+    "dataType": "",
+    "stateOfExternalCrownstone": "",
+    "hasError": "true or false",
+    "setupMode": "true if Crownstone is not yet setup in the Crownstone app",
+    "crownstoneId": "identifier of the Crownstone within the sphere",
+    "switchState": "",
+    "flagsBitmask: "",
+
+    "temperature": "Current temperature of the Crownstone chip (Celcius)",
+    "powerFactor": "Divide by 127 to get actual power factor",
+    "powerUsageReal": "",
+    "powerUsageApparent": "",
+    "accumulatedEnergy": "",
+    "timestamp": "part of a timestamp, or a counter",
+    "dimmerReady": "",
+    "dimmingAllowed": "",
+    "switchLocked": "",
+    "switchCraftEnabled": "",
+    "errors": {
+
+    },
+    "uniqueElement": "",
+    "timeIsSet": "true or false",
+    "deviceType": "String representation of opCode",
+    "rssiOfExternalCrownstone": ""
+}</pre>
+</script>

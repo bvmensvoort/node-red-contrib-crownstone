@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('crownstone', {
+    RED.nodes.registerType('crownstoneScanner', {
         category: "function",
         defaults: {
             name: { value: "" },
@@ -8,8 +8,7 @@
         },
         inputs:1,               // set the number of inputs - only 0 or 1
         outputs:1,              // set the number of outputs - 0 to n
-        // set the icon (held in icons dir below where you save the node)
-        icon: "crownstone_logo_white.svg",
+        icon: "crownstone_logo_black.svg",
         color: "#FFFFFF",
         label: function() {
             return this.name || "Crownstone";
@@ -17,14 +16,15 @@
         labelStyle: function() { // sets the class to apply to the label
             return this.name ? "node_label_italic" : "";
         },
-        inputLabels: function() { return this._("crownstone.control-scanning")},
-        outputLabels: function() { return this._("crownstone.status-found")},
+        paletteLabel: function() { return "Crownstone"; },
+        inputLabels: function() { return this._("crownstoneScanner.control-scanning")},
+        outputLabels: function() { return this._("crownstoneScanner.status-found")},
         credentials: {
             email: {type: "email"},
             sha1Password: {type: "password"}
         },
         oneditprepare: function() {
-            console.log(this);
+            var node = this;
             let nodeId = this.id;
             let establishConnectionInProgressInfo = null;
             let getSpheresInProgressInfo = null;
@@ -32,6 +32,8 @@
             const $elSphereName = $("#node-input-spherename");
             const $elEstablishConnectionButton = $("button.establish-connection");
             const $elEmail = $("#node-input-email");
+            const $elNoSpheres = $("#errornospheres").hide();
+            const $elConnectionStatus = $("#node-connection-status");
             
             $elEstablishConnectionButton.on("click",() => {
                 let $elSha1Password = $("#node-input-sha1Password");
@@ -50,9 +52,11 @@
             // When editing an existing node
             if (this.sphereid) {
                 renderSpheres(new Map([[this.sphereid, this.spherename]]));
+                $elConnectionStatus.html(node._("crownstoneScanner.cloud-connected"));
             } else {
                 if (this.credentials.email && this.credentials.has_sha1Password) {
                     getSpheres(this.credentials.email);
+                    $elConnectionStatus.html(node._("crownstoneScanner.cloud-connected"));
                 }
             }
 
@@ -72,13 +76,15 @@
                 }
 
                 hideSphereSelector();
-                $elEstablishConnectionButton.html("In progress...");
+                $elEstablishConnectionButton.html(node._("crownstoneScanner.connection-in-progress"));
+                $elConnectionStatus.hide();
                 establishConnectionInProgressInfo = {nodeId, sha1Password, email};
                 $.get('crownstone/accountsave', {nodeId, sha1Password, email })
                     .done(() => {
-                        console.log("Done :)");
                         showSphereSelector();
-                        $elEstablishConnectionButton.html("Test connection");
+                        $elEstablishConnectionButton.html(node._("crownstoneScanner.establish-connection"));
+                        $elConnectionStatus.show();
+                        $elConnectionStatus.html(node._("crownstoneScanner.cloud-connected"))
                         establishConnectionInProgressInfo = null;
 
                         // Get spheres directly when cache is empty
@@ -86,13 +92,14 @@
                         if (spheresCacheForEmail && spheresCacheForEmail.size) { 
                             renderSpheres(spheresCacheForEmail);
                         } else {
-                            renderSpheres(new Map([["_LOADING_", "Getting spheres..."]]));
+                            renderSpheres(new Map([["_LOADING_", node._("crownstoneScanner.getting-spheres")]]));
                             getSpheres(email);
                         }
                     })
                     .fail(() => {
-                        console.log("Fail!");
-                        $elEstablishConnectionButton.html("Test connection");
+                        $elEstablishConnectionButton.html(node._("crownstoneStatus.establish-connection"));
+                        $elConnectionStatus.html(node._("crownstoneScanner.cloud-not-connected"))
+                        $elConnectionStatus.show();
                         establishConnectionInProgressInfo = null;
                     })
                 ;
@@ -103,10 +110,12 @@
                 if (getSpheresInProgressInfo !== null) { return; }
 
                 getSpheresInProgressInfo = {};
+                $elNoSpheres.hide();
                 $.get('crownstone/getSpheres', {nodeId})
                     .done((spheres) => {
                         getSpheresInProgressInfo = null;
-                        console.log("Get Spheres Done :)", spheres);
+
+                        $("#errornospheres").toggle(spheres.length === 0);
                         
                         // Cache spheres and update UI
                         let spheresMap = new Map(spheres.map(sphere => [sphere.id, sphere.name]));
@@ -115,7 +124,6 @@
                     })
                     .fail(() => {
                         getSpheresInProgressInfo = null;
-                        console.log("Get Spheres Fail!");
                         renderSpheres(new Map());
                         spheresCache.delete(email);
                     })
@@ -138,39 +146,37 @@
 </script>
 
 
-<script type="text/html" data-template-name="crownstone">
+<script type="text/html" data-template-name="crownstoneScanner">
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="crownstone.name"></span></label>
+        <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="crownstoneScanner.name"></span></label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-email"><i class="icon-tag"></i> <span data-i18n="crownstone.email"></span></label>
+        <label for="node-input-email"><i class="icon-tag"></i> <span data-i18n="crownstoneScanner.email"></span></label>
         <input type="text" id="node-input-email" placeholder="Email">
     </div>
     <div class="form-row">
-        <label for="node-input-sha1Password"><i class="icon-tag"></i> <span data-i18n="crownstone.sha1password"></span></label>
-        <input type="text" id="node-input-sha1Password" placeholder="Password">
+        <label for="node-input-sha1Password"><i class="icon-tag"></i> <span data-i18n="crownstoneScanner.sha1password"></span></label>
+        <input type="password" id="node-input-sha1Password" placeholder="Password">
     </div>
     <div class="form-row">
-        <label for="node-input-sha1Password"></label>
-        <button class="establish-connection">Establish connection</button>
-        <div class="node-connection-status" />
+        <label />
+        <div style="display: inline-block">
+            <button class="establish-connection" data-i18n="crownstoneScanner.establish-connection"></button>
+            <div id="node-connection-status" />
+        </div>
     </div>
     <div id="sphereselect">
         <div class="form-row">
-            <label for="node-input-sphereid"><i class="fa fa-bluetooth-o"></i> <span data-i18n="crownstones.sphere"></span></label>
+            <label for="node-input-sphereid"><i class="fa fa-bluetooth-o"></i> <span data-i18n="crownstoneScanner.sphere"></span></label>
             <div style="display: inline-block; position: relative; width: 70%; height: 20px;">
-                <select id="node-input-sphereid"></select>
+                <select id="node-input-sphereid" style="width:calc(100% - 40px)"></select>
                 <input type="hidden" id="node-input-spherename" />
                 <a id="node-input-search-spheres" class="editor-button" style="position: absolute; right: 0px; top: 0px;">
                     <i class="fa fa-search"></i>
                 </a>
+                <div id="errornospheres" data-i18n="crownstoneScanner.no-spheres" style="display:inline-block"></div>
             </div>
-            <div id="errornospheres" data-i18n="crownstones.no-spheres"></div>
-        </div>
-        <div class="form-row">
-            <button>Test connection</button>
-            <div class="test-sphere-status" />
         </div>
     </div>
 </script>
