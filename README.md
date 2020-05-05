@@ -36,6 +36,7 @@ Add Crownstone node in your flow.<br/>
 To start the scan, inject <code>msg.payload.scan</code> with <code>true</code>.<br/>
 To stop the scan, inject <code>msg.payload.scan</code> with <code>false</code>.
 </p>
+
 ![Flow example](https://github.com/bvmensvoort/node-red-contrib-crownstone/raw/master/screenshot.png)
 
 <br/>
