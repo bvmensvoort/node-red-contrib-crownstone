@@ -1,0 +1,72 @@
+<script type="text/x-red" data-help-name="crownstoneScanner">
+<p>Recherche Crownstones avec bluetooth utilisant Noble et produit statut actuel</p>
+
+<h3>Configuration</h3>
+<p>Pour installer cet node facilement, il est recommandé d'installer quelques Crownstones à l'avance.<br/>
+Vous pouvez faire ça avec l'application Crownstone (<a href="https://play.google.com/store/apps/details?id=rocks.crownstone.consumerapp&hl=fr">Android</a> et <a href="https://apps.apple.com/us/app/crownstone/id1136616106">iOS</a>.
+</p>
+<p>Ensuite, vous aurez aussi:<p>
+<ul>
+    <li>Crownstone cloud compte</li>
+    <li>Une sphère installé</li>
+    <li>Quelques Crownstones installé</li>
+</ul>
+
+<p>Utilisez une mot de passe crypté en SHA1 dans cet node.<br/>
+Pour crypter votre mot de passe, vous pouvez utiliser par exemple <a href="http://www.sha1-online.com/">SHA1-online.com</a>.</p>
+
+<h3>Messages entrants</h3>
+<p>
+Le node a une propriété actuellement: <code>msg.payload.scan</code> <br/>
+Avec une valeur de:<br/>
+<code>true</code> Commence à rechercher pour 10 secondes <br/>
+<code>false</code> Arrete rechercher
+</p>
+<p>
+Pour chaque recherche, le node produit seulement une message par Crownstone.
+</p>
+
+<h3>Production</h3>
+<p>
+    La production est mis en une <code>msg.payload</code> propriété.
+    Il contient le défaut production de bluenet.
+    Par exemple, il produit le <a href="https://github.com/crownstone/bluenet/blob/master/docs/SERVICE_DATA.md#state-packet">Service data</a>.
+</p>
+<p>Regardez en bas pour détails<p>
+<pre>{
+"handle": "Bluetooth handle"
+"address": "Adresse Bluetooth"
+"rssi": "Proximité du Crownstone"
+"isCrownstoneFamily": ""
+"isInDFUMode": "true si le Crownstone est en 'retour aux paramètres d'usine' mode"
+"referenceId": ""
+"serviceUUID": "Utiliser quel bluetooth uuid"
+"serviceData: {
+    "opCode": "Type de Crownstone produit",
+    "dataType": "",
+    "stateOfExternalCrownstone": "",
+    "hasError": "true ou false",
+    "setupMode": "true si le Crownstone n'est pas encore installé dans le Crownstone application",
+    "crownstoneId": "Identifiant du Crownstone dans la sphère",
+    "switchState": "",
+    "flagsBitmask: "",
+
+    "temperature": "Température actuelle de la puce de Crownstone (Celcius)",
+    "powerFactor": "Divisez par 127 pour obtenir le facteur de puissance réel",
+    "powerUsageReal": "",
+    "powerUsageApparent": "",
+    "accumulatedEnergy": "",
+    "timestamp": "partie d'un horodatage, ou un compteur",
+    "dimmerReady": "",
+    "dimmingAllowed": "",
+    "switchLocked": "",
+    "switchCraftEnabled": "",
+    "errors": {
+
+    },
+    "uniqueElement": "",
+    "timeIsSet": "true ou false",
+    "deviceType": "Représentation textuelle de opCode",
+    "rssiOfExternalCrownstone": ""
+}</pre>
+</script>

@@ -1,0 +1,79 @@
+[
+    {
+        "id": "9b34af6f.2b1a48",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e2aedd24.99c81",
+        "type": "inject",
+        "z": "9b34af6f.2b1a48",
+        "name": "",
+        "topic": "",
+        "payload": "{\"scan\":true}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 650,
+        "y": 100,
+        "wires": [
+            [
+                "7b7afb50.876aa4"
+            ]
+        ]
+    },
+    {
+        "id": "b08c9cb6.f4f85",
+        "type": "debug",
+        "z": "9b34af6f.2b1a48",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1060,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "fee2db90.312f48",
+        "type": "inject",
+        "z": "9b34af6f.2b1a48",
+        "name": "",
+        "topic": "",
+        "payload": "{\"scan\":false}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 650,
+        "y": 160,
+        "wires": [
+            [
+                "7b7afb50.876aa4"
+            ]
+        ]
+    },
+    {
+        "id": "7b7afb50.876aa4",
+        "type": "crownstoneScanner",
+        "z": "9b34af6f.2b1a48",
+        "name": "",
+        "sphereid": "afjklasdfjlka324",
+        "spherename": "Example Sphere",
+        "x": 870,
+        "y": 120,
+        "wires": [
+            [
+                "b08c9cb6.f4f85"
+            ]
+        ]
+    }
+]

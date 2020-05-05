@@ -1,0 +1,26 @@
+{
+	"crownstoneScanner": {
+		"name": "Naam",
+		"email": "E-mail",
+		"sha1password": "Wachtwoord (in SHA1)",
+		"crownstone-account": "Crownstone account",
+		"sphere": "Sphere",
+		"credentials-missing": "Inloggegevens missen",
+		"no-spheres": "Geen spheres gevonden",
+		"control-scanning": "Beheer scannen",
+		"status-found": "Status van gevonden Crownstones",
+		"missing-credentials": "Inloggegevens missen. Leg eerst verbinding in de node configuratie.",
+		"establish-connection": "Verbind",
+		"incorrect-input": "Ongeldig binnengekomen bericht (de eigenschap 'scan' mist). Bekijk de beschrijving in de documentatie.",
+		"link-to-cloud-failed": "Kon niet verbinden met de cloud. - ",
+		"scan-started": "Zoektocht naar Crownstones gestart",
+		"error-scanning-crownstones": "Fout bij zoeken naar Crownstones - ",
+		"scan-stopped": "Zoeken naar Crownstones gestopt",
+		"status-scan-stopped": "Gestopt",
+		"status-scan-started": "Gestart",
+		"cloud-connected": "Verbonden met de Crownstone cloud",
+		"cloud-not-connected": "Fout bij verbinden met de Crownstone cloud",
+		"getting-spheres": "Ophalen van spheres...",
+		"connection-in-progress": "Bzig met verbinden..."
+	}
+}

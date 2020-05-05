@@ -1,0 +1,26 @@
+{
+	"crownstoneScanner": {
+		"name": "Nom",
+		"email": "Email",
+		"sha1password": "Mot de passe (en SHA1)",
+		"crownstone-account": "Crownstone compte",
+		"sphere": "Sphère",
+		"credentials-missing": "Détails de connexion absents",
+		"no-spheres": "Sphères pas trouvé",
+		"control-scanning": "Contrôle de recherche",
+		"status-found": "Condition des Crownstones trouvé",
+		"missing-credentials": "Détails de connexion absents. D'abord, établissez une connection dans la configuration du node.",
+		"establish-connection": "Établissez connection",
+		"incorrect-input": "Entrée incorrecte. Regardez la documentation dans l'onglet info.",
+		"link-to-cloud-failed": "Échec de la liaison avec le cloud. - ",
+		"scan-started": "Commencant rechercher de Crownstones",
+		"error-scanning-crownstones": "Erreur rechercher Crownstones - ",
+		"scan-stopped": "Arrêté rechercher Crownstones.",
+		"status-scan-stopped": "Arrêté",
+		"status-scan-started": "Commencé",
+		"cloud-connected": "Crownstone cloud lié",
+		"cloud-not-connected": "Crownstone cloud pas lié",
+		"getting-spheres": "Obtenant sphères...",
+		"connection-in-progress": "En cours..."
+	}
+}

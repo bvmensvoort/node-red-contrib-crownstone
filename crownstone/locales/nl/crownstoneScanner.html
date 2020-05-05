@@ -1,0 +1,71 @@
+<script type="text/x-red" data-help-name="crownstoneScanner">
+<p>Zoekt naar Crownstones met bluetooth (via Noble) en geeft de status daarvan</p>
+
+<h3>Configuratie</h3>
+<p>Om de node in te stellen, is het handig als er al Crownstones ingesteld zijn.<br/>
+Dit kun je doen met de Crownstone app (<a href="https://play.google.com/store/apps/details?id=rocks.crownstone.consumerapp&hl=en">Android</a> and <a href="https://apps.apple.com/us/app/crownstone/id1136616106">iOS</a>.
+</p>
+<p>Daarmee heb je ook meteen:<p>
+<ul>
+    <li>Crownstone cloud account</li>
+    <li>Ingestelde sphere</li>
+    <li>Enkele ingestelde Crownstones</li>
+</ul>
+
+<p>Voor het wachtwoord, gebruik een SHA1 versleuteld wachtwoord.<br/>
+Om je wachtwoord te versleutelen, gebruik bijvoorbeeld <a href="http://www.sha1-online.com/">SHA1-online.com</a>.</p>
+
+<h3>Invoer</h3>
+<p>
+De node kijkt naar een eigenschap: <code>msg.payload.scan</code><br/>
+Met een waarde van:<br/>
+<code>true</code> Start zoektocht voor 10 seconden. <br/>
+<code>false</code> Stopt zoeken naar Crownstones
+</p>
+<p>
+Per scan geeft de node slechts een statusbericht per Crownstone.
+</p>
+
+<h3>Uitaand</h3>
+<p>
+    Het uitgaande bericht zit in een eigenschap <code>msg.payload</code>.
+    Daarin zit de Bluenet uitvoer. Voor meer informatie, check <a href="https://github.com/crownstone/bluenet/blob/master/docs/SERVICE_DATA.md#state-packet">Bluenet Service data</a>.
+</p>
+<p>Details over het bericht:<p>
+<pre>{
+"handle": "Bluetooth handle"
+"address": "Bluetooth MAC adres"
+"rssi": "Naburigheid van de Crownstone"
+"isCrownstoneFamily": ""
+"isInDFUMode": "true als de Crownstone in Factory Reset modus is"
+"referenceId": ""
+"serviceUUID": "het bluetooth uuid die de Service data uitzendt"
+"serviceData: {
+    "opCode": "Type Crownstone product",
+    "dataType": "",
+    "stateOfExternalCrownstone": "",
+    "hasError": "true of false",
+    "setupMode": "true als Crownstone is ingesteld in de Crownstone app",
+    "crownstoneId": "ID van de Crownstone binnen de sphere",
+    "switchState": "",
+    "flagsBitmask: "",
+
+    "temperature": "Temperature van de Crownstone chip (Celcius)",
+    "powerFactor": "Deel door 127 om de huidige energie factor te berekenen",
+    "powerUsageReal": "",
+    "powerUsageApparent": "",
+    "accumulatedEnergy": "",
+    "timestamp": "of een deel van een tijdcode, of een teller",
+    "dimmerReady": "",
+    "dimmingAllowed": "",
+    "switchLocked": "",
+    "switchCraftEnabled": "",
+    "errors": {
+
+    },
+    "uniqueElement": "",
+    "timeIsSet": "true of false",
+    "deviceType": "Tekstuele weergave van opCode",
+    "rssiOfExternalCrownstone": ""
+}</pre>
+</script>
