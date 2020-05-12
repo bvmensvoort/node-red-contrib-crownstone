@@ -152,6 +152,12 @@ module.exports = function (RED) {
         let email = req.query.email;
         let sha1Password = req.query.sha1Password;
         let nodeId = req.query.nodeId;
+        let credentials = RED.nodes.getCredentials(nodeId);
+
+        // When not changing password, use password already stored in the node
+        if (sha1Password === "__PWRD__" && credentials && credentials.sha1Password) {
+            sha1Password = credentials.sha1Password;
+        }
 
         if (!email || !sha1Password || !nodeId) {
             res.status(422).send(RED._("crownstoneScanner.missing-credentials"));

@@ -24,6 +24,7 @@
             sha1Password: {type: "password"}
         },
         oneditprepare: function() {
+            console.log("Loading CrownstoneScanner");
             var node = this;
             let nodeId = this.id;
             let establishConnectionInProgressInfo = null;
@@ -34,6 +35,7 @@
             const $elEmail = $("#node-input-email");
             const $elNoSpheres = $("#errornospheres").hide();
             const $elConnectionStatus = $("#node-connection-status");
+            const $elSphereSelector = $("#sphere-selector");
             
             $elEstablishConnectionButton.on("click",() => {
                 let $elSha1Password = $("#node-input-sha1Password");
@@ -63,10 +65,10 @@
             function showSphereSelector() {
                 // Reset/hide all sublayers
                 // Show layer
-                $("#sphere-selector").show();
+                $elSphereSelector.show();
             }
             function hideSphereSelector() {
-                $("#sphere-selector").hide();
+                $elSphereSelector.hide();
             }
             
             function establishConnection(nodeId, email, sha1Password) {
@@ -97,7 +99,8 @@
                         }
                     })
                     .fail(() => {
-                        $elEstablishConnectionButton.html(node._("crownstoneStatus.establish-connection"));
+                        hideSphereSelector();
+                        $elEstablishConnectionButton.html(node._("crownstoneScanner.establish-connection"));
                         $elConnectionStatus.html(node._("crownstoneScanner.cloud-not-connected"))
                         $elConnectionStatus.show();
                         establishConnectionInProgressInfo = null;
@@ -166,7 +169,7 @@
             <div id="node-connection-status" />
         </div>
     </div>
-    <div id="sphereselect">
+    <div id="sphere-selector">
         <div class="form-row">
             <label for="node-input-sphereid"><i class="fa fa-bluetooth-o"></i> <span data-i18n="crownstoneScanner.sphere"></span></label>
             <div style="display: inline-block; position: relative; width: 70%; height: 20px;">
